@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <title>Recipes</title>
+    <title>vReciBook</title>
     <style>
         :root {
             --color-primary: #269fe6;
@@ -195,6 +195,52 @@
 
         .recipe-author a:hover {
             color: var(--color-primary-dark);
+        }
+
+        .recipe-meta-container {
+            display: flex;
+            flex-flow: row wrap;
+            padding: var(--spacing-gutter-medium);
+            background: var(--color-gray-1);
+        }
+        .recipe-meta {
+            display: flex;
+            flex-flow: column nowrap;
+            flex-shrink: 1;
+            flex-grow: 1;
+            text-align: center;
+        }
+        .recipe-meta-title {
+            font-size: 1.6rem;
+        }
+        .recipe-footer a {
+            background: var(--color-primary-dark);
+            display: block;
+            color: var(--color-white);
+            text-decoration: none;
+            text-align: center;
+            padding: 1.5rem var(--spacing-gutter-medium);
+            transition: all 300ms ease-in-out;
+        }
+        .recipe-footer a:hover {
+            filter: brightness(2);
+        }
+
+        .main-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--color-primary-dark);
+            color: var(--color-white);
+            padding: var(--spacing-gutter-large);
+        }
+        .main-footer a {
+            color: var(--color-white);
+            text-decoration: none;
+            transition: all 300ms ease-in-out;
+        }
+        .main-footer a:hover {
+            filter: brightness(.8);
         }
     </style>
 </head>
