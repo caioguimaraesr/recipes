@@ -19,5 +19,5 @@ from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('recipes.urls')),
+    path('', include('recipes.urls')), #puxa todas as urls da página views presente no app. 
 ]
