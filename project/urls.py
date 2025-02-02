@@ -24,5 +24,6 @@ urlpatterns = [
     path('', include('recipes.urls')), #puxa todas as urls da página views presente no app. 
 ]
 
+# Serve para conseguir carregar as imagens os arquivos estáticos durante a produção do meu site
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
