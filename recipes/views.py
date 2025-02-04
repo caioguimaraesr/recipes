@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_list_or_404
-from utils.recipes.factory import make_recipe
+from django.db.models import Q # Usado para dizer para o django que eu nao quero usar o AND e sim o OR 
+from django.shortcuts import render
 from recipes.models import Recipe
-from django.http import Http404, HttpResponse
+from django.http import Http404
 
 # Create your views here.
 def home(request):
@@ -36,4 +36,22 @@ def recipes(request, id):
     return render(request, 'recipes/pages/recipe-view.html', context={
         'recipe': recipe,
         'is_detail_page': True,
+    })
+
+def search(request):
+    search_term = request.GET.get('q', '').strip()
+
+    if not search_term:
+        raise Http404()
+    
+    recipes = Recipe.objects.filter(
+        Q(title__icontains = search_term) | 
+        Q(description__icontains = search_term),
+        is_published = True
+    ).order_by('-id')
+    
+    return render(request, 'recipes/pages/search.html', context={
+        'page_title': f'Search for "{search_term}" | Recipes',
+        'search_term': search_term,
+        'recipes': recipes,
     })
