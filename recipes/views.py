@@ -2,6 +2,7 @@ from django.db.models import Q # Usado para dizer para o django que eu nao quero
 from django.shortcuts import render
 from recipes.models import Recipe
 from django.http import Http404
+from django.core.paginator import Paginator
 
 # Create your views here.
 def home(request):
@@ -10,8 +11,13 @@ def home(request):
             is_published=True,
         ).order_by('-id')
     )
+
+    current_page = request.GET.get('page', '1')
+    paginator = Paginator(recipes, 3)
+    page_object = paginator.get_page(current_page)
+
     return render(request, 'recipes/pages/home.html', context={
-        'recipes': recipes,
+        'recipes': page_object,
     })
 
 def category(request, category_id):
