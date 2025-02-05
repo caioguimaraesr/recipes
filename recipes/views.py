@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 from utils.pagination import make_pagination
 import os
 
-PER_PAGE = os.environ.get('PER_PAGE', 3)
+PER_PAGE = int(os.environ.get('PER_PAGE', 3))
 
 # Create your views here.
 def home(request):
@@ -14,7 +14,7 @@ def home(request):
         Recipe.objects.filter(
             is_published=True,
         ).order_by('-id')
-    )
+    ) # queryset
 
     page_obj, pagination_range = make_pagination(request,recipes,PER_PAGE)
 
@@ -29,7 +29,7 @@ def category(request, category_id):
             category__id=category_id, 
             is_published=True,
         ).order_by('-id')
-    )
+    ) # queryset
 
     page_obj, pagination_range = make_pagination(request,recipes,PER_PAGE)
     
@@ -40,7 +40,7 @@ def category(request, category_id):
     })
 
 def recipes(request, id):
-    recipe = Recipe.objects.get(pk=id, is_published=True)
+    recipe = Recipe.objects.get(pk=id, is_published=True) # queryset
 
     if not recipes:
         return render(request, 'recipes/pages/notFound.html', status=404)
@@ -56,11 +56,12 @@ def search(request):
     if not search_term:
         raise Http404()
     
+    # "<elementos_dos_models>__icontains" vai aceitar maiuscula, minuscula...
     recipes = Recipe.objects.filter(
         Q(title__icontains = search_term) | 
         Q(description__icontains = search_term),
         is_published = True
-    ).order_by('-id')
+    ).order_by('-id') # queryset
 
     page_obj, pagination_range = make_pagination(request,recipes,PER_PAGE)
     
