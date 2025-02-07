@@ -21,7 +21,8 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('recipes.urls')), #puxa todas as urls da página views presente no app. 
+    path('', include('recipes.urls')), #puxa todas as urls da página views presente no app RECIPES.
+    path('authors/', include('authors.urls')), # Puxa todas as urls da página views presente no app AUTHORS.
 ]
 
 # Serve para conseguir carregar as imagens os arquivos estáticos durante a produção do meu site
