@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from django.http import Http404
+from django.contrib import messages
 
 def register_view(request): # GET
     register_form_data = request.session.get('register_form_data', None) # 4- Vai armazenas os dados na variável 'register_form_data', caso não tenha nada, será None
@@ -16,5 +17,12 @@ def register_create(request): # POST
     POST = request.POST # 1- Pegou os dados 
     request.session['register_form_data'] = POST # 2- Registrou na sessão 'register_form_data'
     form = RegisterForm(POST) # 3- É usado para validar e processar os dados enviados pelo usuário. 
+
+    if form.is_valid(): # Se ele for valido...
+        form.save() # Salvar no banco de dados
+
+        messages.success(request, 'Your user is created. Please log in') # Mensagem de sucesso. 
+
+        del(request.session['register_form_data']) # Vai apagar os dados da sessão. 
 
     return redirect('authors:register')
