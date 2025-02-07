@@ -1,9 +1,14 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+import re
 
 # Senha forte
+def strong_password(password):
+    regex = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$') # Expressão regular
 
+    if not regex.match(password):
+        raise ValidationError(('Enter a strong password to protect your account'), code='invalid')
 
 class RegisterForm(forms.ModelForm):
     first_name = forms.CharField(
@@ -60,7 +65,8 @@ class RegisterForm(forms.ModelForm):
         help_text='Passoword must have at least one uppercase letter, one lowercase letter and one number. The lenght should be at leat 8 characters',
         error_messages={
             'required':'The field most be empty'
-        }
+        },
+        validators=[strong_password]
     )
 
     confirm_password = forms.CharField(
