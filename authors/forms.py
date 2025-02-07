@@ -38,9 +38,10 @@ class RegisterForm(forms.ModelForm):
         widget=forms.TextInput(attrs={
             'placeholder': 'Choose your username'
         }),
-        label="Username",
+        label="User",
         error_messages={
-            'required':'The field most be empty'
+            'required':'The field most be empty',
+            'invalid':'User already exists'
         }
     )
 
@@ -52,7 +53,8 @@ class RegisterForm(forms.ModelForm):
         label='Email',
         error_messages={
             'required':'The field most be empty',
-            'invalid':'Invalid Email. Fill in the field correctly'
+            'invalid':'Invalid Email. Fill in the field correctly',
+
         }
     )
 
@@ -107,3 +109,15 @@ class RegisterForm(forms.ModelForm):
                 'password': error,
                 'confirm_password': error
             })
+        
+    # Email já existente.
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+
+        error = ValidationError(
+            'Email already exists'
+        )
+
+        if User.objects.filter(email=email).exists():
+            raise error
+        return email
