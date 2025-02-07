@@ -1,3 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .forms import RegisterForm
+from django.http import Http404
 
-# Create your views here.
+def register_view(request): # GET
+    register_form_data = request.session.get('register_form_data', None) # 4- Vai armazenas os dados na variável 'register_form_data', caso não tenha nada, será None
+    form = RegisterForm(register_form_data) # 5- Caso for for None (Deu tudo certo com a outra sessão) inciará sem nada, se contiver dados na sessão será exibido os erros para ser corrigido. 
+    return render(request, 'authors/pages/register_view.html', context={ 
+        'form': form
+    }) # 
+
+def register_create(request): # POST 
+    if not request.POST:
+        raise Http404
+
+    POST = request.POST # 1- Pegou os dados 
+    request.session['register_form_data'] = POST # 2- Registrou na sessão 'register_form_data'
+    form = RegisterForm(POST) # 3- É usado para validar e processar os dados enviados pelo usuário. 
+
+    return redirect('authors:register')
