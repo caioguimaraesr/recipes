@@ -1,8 +1,11 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+
+# Senha forte
+
 
 class RegisterForm(forms.ModelForm):
-    
     first_name = forms.CharField(
         required=True,
         widget=forms.TextInput(attrs={
@@ -54,7 +57,7 @@ class RegisterForm(forms.ModelForm):
             'placeholder': 'Create your password'
         }),
         label='Password',
-        help_text='É necessário uma letra maíuscula, uma minuscula e um número.',
+        help_text='Passoword must have at least one uppercase letter, one lowercase letter and one number. The lenght should be at leat 8 characters',
         error_messages={
             'required':'The field most be empty'
         }
@@ -80,3 +83,21 @@ class RegisterForm(forms.ModelForm):
             'username',
             'password',
         ]
+
+
+    # Senhas iguais
+    def clean(self):
+        cleaned_data = super().clean()
+
+        password = cleaned_data.get('password')
+        confirm_password = cleaned_data.get('confirm_password')
+
+        if password != confirm_password:
+            error = ValidationError(
+                'The password must be equal', code = 'invalid'
+            )
+        
+            raise ValidationError({
+                'password': error,
+                'confirm_password': error
+            })
