@@ -10,6 +10,8 @@
         <h2>Register</h2>
     </div>
 
+    {% include "recipes/partials/messages.html" %}
+
     <form action="{% url "authors:create" %}" method="POST">
         {% csrf_token %} 
 
