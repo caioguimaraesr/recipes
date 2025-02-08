@@ -38,11 +38,12 @@ class RegisterForm(forms.ModelForm):
         widget=forms.TextInput(attrs={
             'placeholder': 'Choose your username'
         }),
-        label="User",
+        label="Username",
         error_messages={
             'required':'The field most be empty',
             'invalid':'User already exists'
-        }
+        },
+        help_text='Username must have letters, numbers or one of those @.+=_/. The length should be between 4 and 150 characters'
     )
 
     email = forms.CharField(
@@ -74,7 +75,7 @@ class RegisterForm(forms.ModelForm):
     confirm_password = forms.CharField(
         required=True,
         widget=forms.PasswordInput(attrs={
-            'placeholder': 'Confirm you password'
+            'placeholder': 'Confirm your password'
         }),
         label='Confirm Password',
         error_messages={
@@ -99,7 +100,7 @@ class RegisterForm(forms.ModelForm):
 
         password = cleaned_data.get('password')
         confirm_password = cleaned_data.get('confirm_password')
-
+        
         if password != confirm_password:
             error = ValidationError(
                 'The password must be equal', code = 'invalid'
