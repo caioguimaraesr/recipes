@@ -8,7 +8,7 @@ def strong_password(password):
     regex = re.compile(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$') # Expressão regular
 
     if not regex.match(password):
-        raise ValidationError(('Enter a strong password to protect your account'), code='invalid')
+        raise ValidationError('Enter a strong password to protect your account', code='invalid')
 
 class RegisterForm(forms.ModelForm):
     first_name = forms.CharField(
@@ -39,12 +39,14 @@ class RegisterForm(forms.ModelForm):
             'placeholder': 'Choose your username'
         }),
         label="Username",
+        help_text='Username must have letters, numbers or one of those @.+=_/. The length should be between 4 and 150 characters',
+        min_length=4, max_length=150,
         error_messages={
             'required':'The field most be empty',
-            'invalid':'User already exists'
+            'unique':'User already exists',
+            'min_length':'Username must have at least 4 characters.',
+            'max_length':'Username must have less than 150 characters'
         },
-        help_text='Username must have letters, numbers or one of those @.+=_/. The length should be between 4 and 150 characters',
-        min_length=4, max_length=150
     )
 
     email = forms.CharField(
@@ -56,7 +58,6 @@ class RegisterForm(forms.ModelForm):
         error_messages={
             'required':'The field most be empty',
             'invalid':'Invalid Email. Fill in the field correctly',
-
         }
     )
 
