@@ -2,13 +2,15 @@ from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from django.http import Http404
 from django.contrib import messages
+from django.urls import reverse
 
 def register_view(request): # GET
     register_form_data = request.session.get('register_form_data', None) # 4- Vai armazenas os dados na variável 'register_form_data', caso não tenha nada, será None
     form = RegisterForm(register_form_data) # 5- Caso for for None (Deu tudo certo com a outra sessão) inciará sem nada, se contiver dados na sessão será exibido os erros para ser corrigido. 
     return render(request, 'authors/pages/register_view.html', context={ 
-        'form': form
-    }) # 
+        'form': form,
+        'form_action': reverse('authors:create')
+    }) 
 
 def register_create(request): # POST 
     if not request.POST:
