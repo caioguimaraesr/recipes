@@ -43,7 +43,8 @@ class RegisterForm(forms.ModelForm):
             'required':'The field most be empty',
             'invalid':'User already exists'
         },
-        help_text='Username must have letters, numbers or one of those @.+=_/. The length should be between 4 and 150 characters'
+        help_text='Username must have letters, numbers or one of those @.+=_/. The length should be between 4 and 150 characters',
+        min_length=4, max_length=150
     )
 
     email = forms.CharField(
@@ -100,7 +101,7 @@ class RegisterForm(forms.ModelForm):
 
         password = cleaned_data.get('password')
         confirm_password = cleaned_data.get('confirm_password')
-        
+
         if password != confirm_password:
             error = ValidationError(
                 'The password must be equal', code = 'invalid'
