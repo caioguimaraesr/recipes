@@ -400,6 +400,19 @@ h1,h2,h3,h4,h5 {
     margin-right: 15px;
 }
 
+.plaintext-button {
+    display: inline;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--color-debug-dark);
+    font-size: 20px;
+}
+
+.inline-form { 
+    display: inline;
+}
+
 
 /* Messages */
 .message {
