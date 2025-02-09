@@ -19,7 +19,9 @@ def register_create(request): # POST
     form = RegisterForm(POST) # 3- É usado para validar e processar os dados enviados pelo usuário. 
 
     if form.is_valid(): # Se ele for valido...
-        form.save() # Salvar no banco de dados
+        user = form.save(commit=False) # armazena os dados na varável (user) para ser criptografada. 
+        user.set_password(user.password) # Criptografar a senha para não ver a senha no banco de dados
+        user.save() # Salvar no banco de dados
 
         messages.success(request, 'Your user is created. Please log in') # Mensagem de sucesso. 
 
