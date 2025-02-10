@@ -1,8 +1,9 @@
 from selenium import webdriver
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 import time
+from recipes.tests.test_recipe_base import RecipeMixing
 
-class RecipeBaseFunctionalTest(StaticLiveServerTestCase):
+class RecipeBaseFunctionalTest(StaticLiveServerTestCase, RecipeMixing):
     def setUp(self):
         self.browser = webdriver.Chrome()
         return super().setUp()
