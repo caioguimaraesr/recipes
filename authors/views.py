@@ -47,8 +47,6 @@ def login_create(request):
     
     form = LoginForm(request.POST)
 
-    login_url = reverse('authors:login')
-    
     if form.is_valid():
         authenticated_user = authenticate(
             username=form.cleaned_data.get('username', ''),
@@ -63,7 +61,7 @@ def login_create(request):
     else:
         messages.error(request, 'Error to validate form data')
     
-    return redirect(login_url)
+    return redirect(reverse('authors:dashboard'))
 
 @login_required(login_url='authors:login', redirect_field_name='next') # Esse decorador diz que só vai poder executar a função caso o usuário esteja logado.
 def logout_view(request):
@@ -75,3 +73,7 @@ def logout_view(request):
 
     logout(request)
     return redirect(reverse('authors:login'))
+
+@login_required(login_url='authors:login', redirect_field_name='next') # Esse decorador diz que só vai poder executar a função caso o usuário esteja logado.
+def dashboard(request):
+    return render(request, 'authors/pages/dashboard.html')
