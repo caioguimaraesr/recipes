@@ -459,6 +459,37 @@ h1,h2,h3,h4,h5 {
     margin: 1rem 0;
 }
 
+.go-dashboard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.go-dashboard a{
+    text-decoration: none;
+    color: var(--color-info-dark);
+    cursor: pointer;
+}
+
+.go-dashboard a:hover{
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+.authors-dashboard-container {
+    max-width: 64rem;
+    text-align: left;
+    padding: var(--spacing-gutter-medium);
+    margin: 0 auto;
+}
+
+.authors-dashboard-container a, 
+.authors-dashboard-container ul,
+.authors-dashboard-container p {
+    list-style-type: none;
+    margin: 1rem 0;
+}
+
 @media (max-width: 600px) {
     .main-content-list,
     .form-content-grid {
