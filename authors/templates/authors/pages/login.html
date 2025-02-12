@@ -12,6 +12,13 @@
     </div>
 
     {% include "global/partials/messages.html" %}
-    {% include "global/partials/form.html" %}
 
+    {% if user.is_authenticated %}
+        <div class="go-dashboard">
+            <h1>Go to your <a href="{% url "authors:dashboard" %}">Dashboard</a></h1>
+        </div>
+    {% else %}
+        {% include "global/partials/form.html" %}
+    {% endif %}
+    
 {% endblock content %}
