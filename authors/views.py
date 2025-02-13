@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from recipes.models import Recipe
 from authors.forms.recipe_form import AuthorRecipeForm
+from django.utils.text import slugify
 
 def register_view(request): # GET
     register_form_data = request.session.get('register_form_data', None) # 4- Vai armazenas os dados na variável 'register_form_data', caso não tenha nada, será None
@@ -102,6 +103,17 @@ def dashboard_recipe_new(request):
         recipe.is_published = False
         recipe.slug = recipe.title
 
+        base_slug = slugify(recipe.title)
+        slug = base_slug
+        count = 1
+
+        # Garantindo unicidade do slug
+        while Recipe.objects.filter(slug=slug).exists():
+            slug = f"{base_slug}-{count}"
+            count += 1
+
+        recipe.slug = slug
+
         recipe.save()
 
         messages.success(request, 'Your recipe has been save succesfully')
@@ -138,6 +150,17 @@ def dashboard_recipe_edit(request, id):
         recipe.preparation_steps_is_html = False
         recipe.is_published = False
         recipe.slug = recipe.title.replace(' ', '-').strip()
+
+        base_slug = slugify(recipe.title)
+        slug = base_slug
+        count = 1
+
+        # Garantindo unicidade do slug
+        while Recipe.objects.filter(slug=slug).exists():
+            slug = f"{base_slug}-{count}"
+            count += 1
+
+        recipe.slug = slug
 
         recipe.save()
 
