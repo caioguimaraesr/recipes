@@ -137,6 +137,7 @@ h1,h2,h3,h4,h5 {
     align-items: center;
 }
 
+
 .main-content-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -363,7 +364,9 @@ h1,h2,h3,h4,h5 {
     color: var(--color-error-dark);
 }
 
-.form-content input {
+.form-content input,
+.form-content textarea,
+.form-content select {
     width: 100%;
     padding: 1rem;
     border-radius: .4rem;
@@ -393,6 +396,10 @@ h1,h2,h3,h4,h5 {
     color: fff;
 }
 
+.span-2 {
+    grid-column: span 2;
+}
+
 .register-label {
     text-align: center;
     font-size: 25px;
@@ -412,7 +419,6 @@ h1,h2,h3,h4,h5 {
 .inline-form { 
     display: inline;
 }
-
 
 /* Messages */
 .message {
