@@ -11,6 +11,7 @@ class AuthorRecipeForm(forms.ModelForm):
             'preparation_time_unit',
             'servings',
             'servings_unit',
+            'category',
             'preparation_step',
             'cover',
         ]
@@ -20,6 +21,9 @@ class AuthorRecipeForm(forms.ModelForm):
                 'class':'span-2'
             }),
             'cover': forms.FileInput(attrs={
+                'class':'span-2'
+            }),
+            'category': forms.Select(attrs={
                 'class':'span-2'
             }),
             'servings_unit': forms.Select(
