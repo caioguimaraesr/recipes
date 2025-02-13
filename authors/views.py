@@ -88,6 +88,32 @@ def dashboard(request):
     })
 
 @login_required(login_url='authors:login', redirect_field_name='next') # Esse decorador diz que só vai poder executar a função caso o usuário esteja logado.
+def dashboard_recipe_new(request):
+    form = AuthorRecipeForm(
+        data=request.POST or None,
+        files=request.FILES or None,
+    )
+
+    if form.is_valid():
+        recipe = form.save(commit=False)
+
+        recipe.author = request.user
+        recipe.preparation_steps_is_html = False
+        recipe.is_published = False
+
+        recipe.save()
+
+        messages.success(request, 'Your recipe has been save succesfully')
+        return redirect(
+            reverse('authors:dashboard_recipe_edit', args=(recipe.id, ))
+        )
+
+    return render(request, 'authors/pages/dashboard_recipe.html', context={
+        'form': form,
+        'form_action':reverse('authors:dashboard_recipe_new')
+    })
+
+@login_required(login_url='authors:login', redirect_field_name='next') # Esse decorador diz que só vai poder executar a função caso o usuário esteja logado.
 def dashboard_recipe_edit(request, id):
     recipe = Recipe.objects.get(
         is_published=False,
