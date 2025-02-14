@@ -416,6 +416,7 @@ h1,h2,h3,h4,h5 {
     display: inline;
     border: none;
     background: none;
+    padding: 10px;
     cursor: pointer;
     color: var(--color-debug-dark);
     font-size: 20px;
