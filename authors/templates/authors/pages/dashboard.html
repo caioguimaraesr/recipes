@@ -16,6 +16,11 @@
             <ul>
                 {% for recipe in recipes %}
                     <li>
+                        <form class= "inline-form form-delete" action="{% url "authors:dashboard_recipe_delete" %}" method='POST'>
+                            {% csrf_token %}
+                            <button class="plaintext-button" type="submit">🗑️</button>
+                            <input type="hidden" name="id" value="{{ recipe.id }}">
+                        </form>
                         <a href="{% url "authors:dashboard_recipe_edit" recipe.id %}">{{ recipe.title }}</a>
                     </li>
                 {% empty %}
