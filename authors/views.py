@@ -86,6 +86,7 @@ def dashboard(request):
 
     return render(request, 'authors/pages/dashboard.html', context={
         'recipes': recipes,
+        'dashboard': True
     })
 
 @login_required(login_url='authors:login', redirect_field_name='next') # Esse decorador diz que só vai poder executar a função caso o usuário esteja logado.
@@ -118,7 +119,7 @@ def dashboard_recipe_new(request):
 
         messages.success(request, 'Your recipe has been save succesfully')
         return redirect(
-            reverse('authors:dashboard_recipe_edit', args=(recipe.id, ))
+            reverse('authors:dashboard')
         )
 
     return render(request, 'authors/pages/dashboard_recipe.html', context={

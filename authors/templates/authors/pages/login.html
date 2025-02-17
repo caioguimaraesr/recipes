@@ -1,9 +1,15 @@
 {% extends "global/base.html" %}
 
-{% block title %}Login | {% endblock title %}
+{% block title %}
+{% if user.is_authenticated %}
+    Login | {{ request.user }}
+{% else %}
+    Login | Recipes
+{% endif %}
+{% endblock title %}
+
 
 {% block content %}
-
 
 <div class="main-content container">
     <div class="register-label">
@@ -25,5 +31,5 @@
     {% else %}
         {% include "global/partials/form.html" %}
     {% endif %}
-    
+
 {% endblock content %}
