@@ -8,7 +8,12 @@
 <div class="main-content container">
     <div class="register-label">
         <h2>Login</h2>
-        {% include "authors/partials/login_message.html" %}
+        {% if user.is_authenticated %}
+            <p>You are logged in with {{ user }}</p>
+        {% else %}
+            {% include "authors/partials/login_message.html" %}
+            <p>You dont have an account? <a href="{% url "authors:register" %}">Register</a></p>
+        {% endif %}
     </div>
 
     {% include "global/partials/messages.html" %}
