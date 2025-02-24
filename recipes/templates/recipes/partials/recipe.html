@@ -2,14 +2,14 @@
     <div class="recipe-cover">
         <a href="{% url 'recipes:recipe' recipe.id %}">
             {% if recipe.cover %}
-            <img src="{{ recipe.cover.url }}" alt="temporario">
+                <img src="{{ recipe.cover.url }}" alt="temporario">
             {% endif %}
         </a>
     </div>
     <div class="recipe-title-container">
         <h2 class="recipe-title">
             <a href="{% url 'recipes:recipe' recipe.id %}">    
-        {{ recipe.title }}
+                {{ recipe.title }}
             </a>
         </h2>
     </div>
